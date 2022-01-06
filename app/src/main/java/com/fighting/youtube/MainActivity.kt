@@ -4,6 +4,9 @@ import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.fighting.youtube.adapter.VideoAdapter
 import com.fighting.youtube.dto.VideoDto
 import com.fighting.youtube.service.VideoService
 import retrofit2.Call
@@ -14,6 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var videoAdapter: VideoAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,6 +26,13 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, PlayerFragment())
             .commit()
+
+        videoAdapter = VideoAdapter()
+
+        findViewById<RecyclerView>(R.id.mainRecyclerView).apply {
+            adapter = videoAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
 
         getVideoList()
     }
@@ -33,15 +45,15 @@ class MainActivity : AppCompatActivity() {
 
         retrofit.create(VideoService::class.java).also {
             it.listVideos()
-                .enqueue(object : Callback<VideoDto>{
+                .enqueue(object : Callback<VideoDto> {
                     override fun onResponse(call: Call<VideoDto>, response: Response<VideoDto>) {
-                        if (response.isSuccessful.not()){
-                            Log.d(TAG, "MainActivity - FAIL")
+                        if (response.isSuccessful.not()) {
                             return
                         }
 
-                        response.body()?.let {
+                        response.body()?.let { videoDto ->
                             Log.d(TAG, "MainActivity - $it")
+                            videoAdapter.submitList(videoDto.videos)
                         }
                     }
 
