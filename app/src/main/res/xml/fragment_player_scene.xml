@@ -7,6 +7,9 @@
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
         <KeyFrameSet></KeyFrameSet>
+        <OnSwipe
+            motion:touchAnchorId="@+id/mainContainerLayout"
+            motion:touchAnchorSide="bottom" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
