@@ -48,8 +48,6 @@ class CustomMotionLayout(context: Context, attributeSet: AttributeSet? = null) :
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return super.onTouchEvent(event)
-
         when (event.actionMasked) {
             // 원래의 터치 이벤트가 리턴이 되게 하겠다
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
