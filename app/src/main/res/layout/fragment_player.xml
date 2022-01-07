@@ -10,7 +10,7 @@
         android:id="@+id/mainContainerLayout"
         android:layout_width="0dp"
         android:layout_height="250dp"
-        android:background="@color/purple_200"
+        android:background="#DCDCDC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,6 +35,7 @@
 
     <TextView
         android:id="@+id/bottomTitleTextView"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
